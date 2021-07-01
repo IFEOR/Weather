@@ -66,4 +66,17 @@
         app:layout_constraintTop_toBottomOf="@id/btn_show_weather"
         tools:text="27,2°C" />
 
+    <TextView
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/montserrat_alternates"
+        android:gravity="end"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_weather"
+        tools:text="Небольшой дождь" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
