@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
@@ -32,13 +34,21 @@ class MainActivity : AppCompatActivity() {
         btnShowWeather?.setOnClickListener { showWeather(etCity?.text?.toString(), this) }
     }
 
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
+    }
+
     private fun showWeather(typedCity: String?, context: Context) {
         if (typedCity?.trim()?.equals("")!!)
             Toast.makeText(context, R.string.hint_city_name, Toast.LENGTH_LONG).show()
         else {
             val city: String = typedCity
             val key: String = API_KEY
-            val url: String = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
+            val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
 
             doAsync {
                 val apiResponse = URL(url).readText()
