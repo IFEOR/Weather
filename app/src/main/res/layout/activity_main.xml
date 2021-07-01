@@ -12,71 +12,71 @@
         android:id="@+id/tv_logo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:fontFamily="@font/montserrat_alternates"
-        android:gravity="center"
-        android:text="@string/str_logo"
-        android:textColor="@color/white"
-        android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/str_logo"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_alternates"
+        android:gravity="center"
+        android:layout_marginTop="15dp" />
 
     <EditText
         android:id="@+id/et_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:backgroundTint="@color/teal_700"
-        android:fontFamily="@font/montserrat_alternates"
-        android:hint="@string/hint_city_name"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:textColor="@color/white"
-        android:textColorHint="@color/light_gray"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_logo" />
+        app:layout_constraintTop_toBottomOf="@id/tv_logo"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_alternates"
+        android:layout_marginTop="40dp"
+        android:backgroundTint="@color/teal_700"
+        android:hint="@string/hint_city_name"
+        android:textColorHint="@color/light_gray"
+        android:inputType="text"
+        android:importantForAutofill="no" />
 
     <Button
         android:id="@+id/btn_show_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:backgroundTint="@color/teal_700"
-        android:fontFamily="@font/montserrat_alternates"
-        android:text="@string/str_show_weather"
-        android:textAllCaps="false"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_city" />
+        app:layout_constraintTop_toBottomOf="@id/et_city"
+        android:text="@string/str_show_weather"
+        android:textSize="20sp"
+        android:fontFamily="@font/montserrat_alternates"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/teal_700"
+        android:textAllCaps="false" />
 
     <TextView
         android:id="@+id/tv_weather"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:fontFamily="@font/montserrat_alternates"
-        android:gravity="center"
-        android:textColor="@color/white"
-        android:textSize="55sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/btn_show_weather"
-        tools:text="27,2°C" />
+        tools:text="27,2°C"
+        android:textSize="55sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_alternates"
+        android:gravity="center"
+        android:layout_marginTop="50dp" />
 
     <TextView
         android:id="@+id/tv_desc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_alternates"
-        android:gravity="end"
-        android:textColor="@color/white"
-        android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/tv_weather"
-        tools:text="Небольшой дождь" />
+        tools:text="Небольшой дождь"
+        android:textSize="20sp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_alternates"
+        android:gravity="end" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
