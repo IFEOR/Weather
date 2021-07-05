@@ -11,7 +11,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import com.ifeor.weather.utils.API_KEY
-import org.jetbrains.anko.doAsync
 import org.json.JSONObject
 import java.net.URL
 
@@ -48,9 +47,10 @@ class MainActivity : AppCompatActivity() {
         else {
             val city: String = typedCity
             val key: String = API_KEY
-            val url = "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
+            val url =
+                "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
 
-            doAsync {
+            Thread {
                 val apiResponse = URL(url).readText()
                 Log.d("INFO", apiResponse)
 
@@ -62,9 +62,11 @@ class MainActivity : AppCompatActivity() {
                     .getJSONObject("main")
                     .getString("temp")
 
-                tvWeather?.text = temp
-                tvDesc?.text = desc
-            }
+                runOnUiThread {
+                    tvWeather?.text = temp
+                    tvDesc?.text = desc
+                }
+            }.start()
         }
     }
 }
