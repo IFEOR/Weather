@@ -6,9 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
-import android.widget.Button
-import android.widget.EditText
-import android.widget.Toast
+import android.widget.*
 
 class CityChoiceActivity : AppCompatActivity() {
 
@@ -23,6 +21,17 @@ class CityChoiceActivity : AppCompatActivity() {
         btnConfirmCity = findViewById(R.id.btn_confirm_city)
 
         btnConfirmCity?.setOnClickListener { confirmCity() }
+
+        val cityList = ArrayList<String>()
+        cityList.add("Москва")
+        cityList.add("Омск")
+        cityList.add("Анапа")
+
+        val lvCities = findViewById<ListView>(R.id.lv_cities)
+        lvCities.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cityList)
+        lvCities.setOnItemClickListener { _, _, position, _ ->
+            etCity?.setText(cityList[position])
+        }
     }
 
     private fun confirmCity() {
