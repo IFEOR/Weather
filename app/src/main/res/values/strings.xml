@@ -1,9 +1,15 @@
 <resources>
     <string name="app_name">Weather</string>
+    <!--STRING-->
     <string name="str_logo">Weather in your city</string>
-    <string name="hint_city_name">Enter the name of the city</string>
-    <string name="str_show_weather">Show me weather</string>
     <string name="str_choose_city">Choose city</string>
     <string name="str_confirm">Confirm</string>
+    <string name="str_show_weather">Show me weather</string>
+    <string name="str_settings">Settings</string>
+    <!--HINT-->
+    <string name="hint_city_name">Enter the name of the city</string>
+    <!--ERROR-->
     <string name="err_city_not_chosen">The city was not chosen</string>
+    <!--DESCRIPTION-->
+    <string name="desc_app_ic">Application icon</string>
 </resources>

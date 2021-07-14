@@ -4,14 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.google.android.material.navigation.NavigationView
 import com.ifeor.weather.utils.API_KEY
 import org.json.JSONObject
 import java.net.URL
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private var btnChooseCity: Button? = null
     private var btnShowWeather: Button? = null
@@ -22,6 +24,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val navView = findViewById<NavigationView>(R.id.nav_view_main)
+        navView.setNavigationItemSelectedListener(this)
 
         btnChooseCity = findViewById(R.id.btn_choose_city)
         btnShowWeather = findViewById(R.id.btn_show_weather)
@@ -40,10 +44,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showWeather(typedCity: String?) {
-        if(typedCity?.trim()?.equals("")!!) {
+        if (typedCity?.trim()?.equals("")!!) {
             Toast.makeText(this, R.string.err_city_not_chosen, Toast.LENGTH_LONG).show()
         } else {
-            val city: String? = typedCity
+            val city: String = typedCity
             val key: String = API_KEY
             val url =
                 "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
@@ -66,5 +70,14 @@ class MainActivity : AppCompatActivity() {
                 }
             }.start()
         }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.mdm_weather -> TODO()
+            R.id.mdm_choose_city -> TODO()
+            R.id.mdm_settings -> TODO()
+        }
+        return true
     }
 }
