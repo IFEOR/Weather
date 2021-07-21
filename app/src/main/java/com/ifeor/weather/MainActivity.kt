@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private var btnShowWeather: Button? = null
     private var tvWeather: TextView? = null
     private var tvDesc: TextView? = null
-    private var tvCity: TextView? = null
+    private var tvTypedCity: TextView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,11 +31,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         btnShowWeather = findViewById(R.id.btn_show_weather)
         tvWeather = findViewById(R.id.tv_weather)
         tvDesc = findViewById(R.id.tv_desc)
-        tvCity = findViewById(R.id.tv_city)
-        tvCity?.text = intent.getCharSequenceExtra("typedCity")
+        tvTypedCity = findViewById(R.id.tv_typed_city)
+        tvTypedCity?.text = intent.getCharSequenceExtra("typedCity")
 
         btnChooseCity?.setOnClickListener { launchCityChoiceActivity() }
-        btnShowWeather?.setOnClickListener { showWeather(tvCity?.text?.toString()) }
+        btnShowWeather?.setOnClickListener { showWeather(tvTypedCity?.text?.toString()) }
     }
 
     private fun launchCityChoiceActivity() {

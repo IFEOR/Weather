@@ -7,6 +7,8 @@ import android.os.Bundle
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 
 class CityChoiceActivity : AppCompatActivity() {
 
@@ -22,30 +24,42 @@ class CityChoiceActivity : AppCompatActivity() {
 
         btnConfirmCity?.setOnClickListener { confirmCity() }
 
-        val cityList = ArrayList<String>()
-        cityList.add("Москва")
-        cityList.add("Омск")
-        cityList.add("Анапа")
+        // Cities mock
+        val cities = ArrayList<CityItemList>()
+        cities.add(CityItemList("Анапа"))
+        cities.add(CityItemList("Москва"))
+        cities.add(CityItemList("Омск"))
 
-        val lvCities = findViewById<ListView>(R.id.lv_cities)
-        lvCities.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, cityList)
-        lvCities.setOnItemClickListener { _, _, position, _ ->
-            etCity?.setText(cityList[position])
-        }
+        // Bind RecyclerView adapter
+        val rvCities = findViewById<RecyclerView>(R.id.rv_cities)
+        rvCities.hasFixedSize()
+        rvCities.layoutManager = LinearLayoutManager(this)
+        rvCities.adapter = CityRecyclerAdapter(cities, object : OnItemClickListener{
+            override fun onItemClick(city: String) {
+                etCity?.setText(city)
+            }
+
+        })
     }
 
     private fun confirmCity() {
         val typedCity = etCity?.text?.toString()
-        if (typedCity?.trim()?.equals("")!!) {
+        if (typedCity?.trim()?.equals("")!!)
             Toast.makeText(this, R.string.hint_city_name, Toast.LENGTH_LONG).show()
-        } else {
-            val intent = Intent(this, MainActivity::class.java).apply {
-                putExtra("typedCity", typedCity)
-            }
-            startActivity(intent)
-        }
+        else
+            launchActivity("typedCity", typedCity)
     }
 
+    // Launch MainActivity with intent data
+    @Suppress("SameParameterValue")
+    private fun launchActivity(name: String, value: String) {
+        val intent = Intent(this, MainActivity::class.java).apply {
+            putExtra(name, value)
+        }
+        startActivity(intent)
+    }
+
+    // Hide keyboard after typing
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
         if (currentFocus != null) {
             val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager

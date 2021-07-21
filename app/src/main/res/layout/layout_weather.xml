@@ -9,7 +9,7 @@
     tools:context=".MainActivity">
 
     <TextView
-        android:id="@+id/tv_city"
+        android:id="@+id/tv_typed_city"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
@@ -35,7 +35,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_city" />
+        app:layout_constraintTop_toBottomOf="@id/tv_typed_city" />
 
     <Button
         android:id="@+id/btn_show_weather"
