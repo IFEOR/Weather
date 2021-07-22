@@ -6,8 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CityRecyclerAdapter(cityList: ArrayList<CityItemList>, private val onClickListener: OnItemClickListener) :
-    RecyclerView.Adapter<CityRecyclerAdapter.CityViewHolder>() {
+class CitiesAdapter(cityList: ArrayList<CityItemList>, private val onClickListener: OnItemClickListener) :
+    RecyclerView.Adapter<CitiesAdapter.CityViewHolder>() {
 
     var cities = cityList
 

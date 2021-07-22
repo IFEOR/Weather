@@ -44,7 +44,7 @@ class CitiesFragment : Fragment() {
         val rvCities = view.findViewById<RecyclerView>(R.id.rv_cities)
         rvCities.hasFixedSize()
         rvCities.layoutManager = LinearLayoutManager(requireContext())
-        rvCities.adapter = CityRecyclerAdapter(cities, object : OnItemClickListener {
+        rvCities.adapter = CitiesAdapter(cities, object : OnItemClickListener {
             override fun onItemClick(city: String) {
                 etCity.setText(city)
             }
