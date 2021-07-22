@@ -1,83 +1,53 @@
 package com.ifeor.weather
 
-import android.content.Intent
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.MenuItem
-import android.widget.Button
-import android.widget.TextView
-import android.widget.Toast
+import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
+import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
-import com.ifeor.weather.utils.API_KEY
-import org.json.JSONObject
-import java.net.URL
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
-    private var btnChooseCity: Button? = null
-    private var btnShowWeather: Button? = null
-    private var tvWeather: TextView? = null
-    private var tvDesc: TextView? = null
-    private var tvTypedCity: TextView? = null
+    // For data transfer between fragments
+    private val bundle = Bundle()
+    private val defaulCity = "Омск"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        // Drawer navigation
         val navView = findViewById<NavigationView>(R.id.nav_view_main)
         navView.setNavigationItemSelectedListener(this)
-
-        btnChooseCity = findViewById(R.id.btn_choose_city)
-        btnShowWeather = findViewById(R.id.btn_show_weather)
-        tvWeather = findViewById(R.id.tv_weather)
-        tvDesc = findViewById(R.id.tv_desc)
-        tvTypedCity = findViewById(R.id.tv_typed_city)
-        tvTypedCity?.text = intent.getCharSequenceExtra("typedCity")
-
-        btnChooseCity?.setOnClickListener { launchCityChoiceActivity() }
-        btnShowWeather?.setOnClickListener { showWeather(tvTypedCity?.text?.toString()) }
-    }
-
-    private fun launchCityChoiceActivity() {
-        val intent = Intent(this, CityChoiceActivity::class.java)
-        startActivity(intent)
-    }
-
-    private fun showWeather(typedCity: String?) {
-        if (typedCity?.trim()?.equals("")!!) {
-            Toast.makeText(this, R.string.err_city_not_chosen, Toast.LENGTH_LONG).show()
-        } else {
-            val city: String = typedCity
-            val key: String = API_KEY
-            val url =
-                "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
-
-            Thread {
-                val apiResponse = URL(url).readText()
-                Log.d("INFO", apiResponse)
-
-                val desc = JSONObject(apiResponse)
-                    .getJSONArray("weather")
-                    .getJSONObject(0)
-                    .getString("description")
-                val temp = JSONObject(apiResponse)
-                    .getJSONObject("main")
-                    .getString("temp")
-
-                runOnUiThread {
-                    tvWeather?.text = temp
-                    tvDesc?.text = desc
-                }
-            }.start()
-        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.mdm_weather -> TODO()
-            R.id.mdm_choose_city -> TODO()
-            R.id.mdm_settings -> TODO()
+            R.id.nav_weather -> toWeatherFragment()
+            R.id.nav_cities -> toCitiesFragment()
+            R.id.nav_settings -> toSettingsFragment()
         }
         return true
+    }
+
+    fun toWeatherFragment(value: String = defaulCity) {
+        bundle.putString("CityArg", value)
+        findNavController(R.id.nav_host_fragment).navigate(R.id.nav_weather, bundle)
+    }
+
+    fun toCitiesFragment() = findNavController(R.id.nav_host_fragment).navigate(R.id.nav_cities)
+
+    fun toSettingsFragment() = findNavController(R.id.nav_host_fragment).navigate(R.id.nav_settings)
+
+    // Hide keyboard after typing
+    override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {
+        if (currentFocus != null) {
+            val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            imm.hideSoftInputFromWindow(currentFocus!!.windowToken, 0)
+        }
+        return super.dispatchTouchEvent(ev)
     }
 }

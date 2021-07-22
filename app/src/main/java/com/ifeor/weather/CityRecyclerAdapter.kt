@@ -18,9 +18,6 @@ class CityRecyclerAdapter(cityList: ArrayList<CityItemList>, private val onClick
 
         fun bind(cityItem: CityItemList) {
             tvCity.text = cityItem.cityName
-            //itemView.setOnClickListener {
-                //etCity?.setText(tvCity.text)
-            //}
         }
     }
 
