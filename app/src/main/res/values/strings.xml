@@ -11,6 +11,7 @@
     <!--ERROR-->
     <string name="err_city_not_chosen">The city was not chosen</string>
     <string name="err_city_loading">Error with getting cities list</string>
+    <string name="err_weather_loading">Error with getting weather</string>
     <!--DESCRIPTION-->
     <string name="desc_app_ic">Application icon</string>
 

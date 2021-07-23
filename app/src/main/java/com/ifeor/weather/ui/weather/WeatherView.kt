@@ -1,16 +1,15 @@
-package com.ifeor.weather.ui.cities
+package com.ifeor.weather.ui.weather
 
-import com.ifeor.weather.data.model.CityItemList
 import moxy.MvpView
 import moxy.viewstate.strategy.SingleStateStrategy
 import moxy.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(SingleStateStrategy::class)
-interface CitiesView : MvpView {
+interface WeatherView : MvpView {
 
+    fun showWeather(temp: String, desc: String)
     fun showNoDataText()
     fun showLoadErrorText()
     fun presentLoading()
-    fun presentCities(data: ArrayList<CityItemList>)
-    fun confirmCity(data: String)
+    fun displayTypedCity()
 }

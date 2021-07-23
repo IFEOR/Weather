@@ -10,7 +10,7 @@ class CitiesPresenter : MvpPresenter<CitiesView>() {
     private val citiesRepository = CitiesRepositoryImpl()
 
     fun fetchCities() {
-        viewState.presentLoading()
+        //viewState.presentLoading()
 
         val cities = citiesRepository.fetchCourseAsync()
         try {
@@ -25,6 +25,6 @@ class CitiesPresenter : MvpPresenter<CitiesView>() {
         if (typedCity?.trim()?.equals("")!!)
             viewState.showNoDataText()
         else
-            viewState.showWeather(typedCity)
+            viewState.confirmCity(typedCity)
     }
 }

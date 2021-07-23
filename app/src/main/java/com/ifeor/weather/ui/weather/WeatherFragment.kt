@@ -1,9 +1,6 @@
 package com.ifeor.weather.ui.weather
 
-import android.app.Activity
 import android.os.Bundle
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,12 +8,13 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.ifeor.weather.R
-import com.ifeor.weather.utils.API_KEY
-import org.json.JSONObject
-import java.net.URL
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
 
-class WeatherFragment : Fragment() {
+class WeatherFragment : MvpAppCompatFragment(), WeatherView {
 
+    @InjectPresenter
+    lateinit var weatherPresenter: WeatherPresenter
     // Fields
     lateinit var btnShowWeather: Button
     lateinit var tvWeather: TextView
@@ -38,40 +36,33 @@ class WeatherFragment : Fragment() {
         tvWeather = view.findViewById(R.id.tv_weather)
         tvDesc = view.findViewById(R.id.tv_desc)
         tvTypedCity = view.findViewById(R.id.tv_typed_city)
-
-        // Получение данных от другого фрагмента
-        tvTypedCity.text = arguments?.getString("CityArg")
-
+        weatherPresenter.loadView()
         // Listeners
-        btnShowWeather.setOnClickListener { showWeather(tvTypedCity.text?.toString()) }
+        btnShowWeather.setOnClickListener { weatherPresenter.fetchWeather(tvTypedCity.text?.toString()) }
     }
 
-    private fun showWeather(typedCity: String?) {
-        if (typedCity?.trim()?.equals("")!!) {
-            Toast.makeText(requireContext(), R.string.err_city_not_chosen, Toast.LENGTH_LONG).show()
-        } else {
-            val city: String = typedCity
-            val key: String = API_KEY
-            val url =
-                "https://api.openweathermap.org/data/2.5/weather?q=$city&appid=$key&units=metric&lang=ru"
+    // Displays the received weather
+    override fun showWeather(temp: String, desc: String) {
+        tvWeather.text = temp
+        tvDesc.text = desc
+    }
 
-            Thread {
-                val apiResponse = URL(url).readText()
-                Log.d("INFO", apiResponse)
+    // User didn't type the city name
+    override fun showNoDataText() {
+        Toast.makeText(requireContext(), R.string.err_city_not_chosen, Toast.LENGTH_LONG).show()
+    }
 
-                val desc = JSONObject(apiResponse)
-                    .getJSONArray("weather")
-                    .getJSONObject(0)
-                    .getString("description")
-                val temp = JSONObject(apiResponse)
-                    .getJSONObject("main")
-                    .getString("temp")
+    // Not received current weather
+    override fun showLoadErrorText() {
+        Toast.makeText(requireContext(), R.string.err_weather_loading, Toast.LENGTH_LONG).show()
+    }
 
-                (context as Activity).runOnUiThread {
-                    tvWeather.text = temp
-                    tvDesc.text = desc
-                }
-            }.start()
-        }
+    override fun presentLoading() {
+        TODO()
+    }
+
+    // Получение данных от другого фрагмента
+    override fun displayTypedCity() {
+        tvTypedCity.text = arguments?.getString("CityArg")
     }
 }

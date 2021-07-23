@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     // For data transfer between fragments
     private val bundle = Bundle()
-    private val defaulCity = "Омск"
+    private val defaultCity = "Омск"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +34,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    fun toWeatherFragment(value: String = defaulCity) {
+    fun toWeatherFragment(value: String = defaultCity) {
         bundle.putString("CityArg", value)
         findNavController(R.id.nav_host_fragment).navigate(R.id.nav_weather, bundle)
     }

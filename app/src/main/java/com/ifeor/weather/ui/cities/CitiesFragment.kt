@@ -78,7 +78,7 @@ class CitiesFragment : MvpAppCompatFragment(), CitiesView {
     }
 
     // To WeatherFragment with typed city
-    override fun showWeather(data: String) {
+    override fun confirmCity(data: String) {
         (context as MainActivity).toWeatherFragment(data)
     }
 }
