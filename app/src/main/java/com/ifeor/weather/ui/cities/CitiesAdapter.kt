@@ -14,6 +14,11 @@ class CitiesAdapter(cityList: ArrayList<CityItemList>, private val onClickListen
 
     var cities = cityList
 
+    fun updateCities(newCities: List<CityItemList>) {
+        cities.clear()
+        cities.addAll(newCities)
+        notifyDataSetChanged()
+    }
 
     class CityViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 

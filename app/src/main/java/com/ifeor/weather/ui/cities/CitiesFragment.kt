@@ -1,7 +1,6 @@
 package com.ifeor.weather.ui.cities
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,11 +10,22 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.ifeor.weather.data.model.CityItemList
-import com.ifeor.weather.ui.common.MainActivity
 import com.ifeor.weather.ui.common.OnItemClickListener
 import com.ifeor.weather.R
+import com.ifeor.weather.data.repositories.CitiesRepositoryImpl
+import com.ifeor.weather.ui.common.MainActivity
+import moxy.MvpAppCompatFragment
+import moxy.presenter.InjectPresenter
 
-class CitiesFragment : Fragment() {
+class CitiesFragment : MvpAppCompatFragment(), CitiesView {
+
+    @InjectPresenter
+    lateinit var citiesPresenter: CitiesPresenter
+    private val citiesAdapter = CitiesAdapter(CitiesRepositoryImpl().fetchCourseAsync(), object : OnItemClickListener {
+        override fun onItemClick(text: String) {
+            etCity.setText(text)
+        }
+    })
 
     // Fields
     private lateinit var etCity: EditText
@@ -31,35 +41,44 @@ class CitiesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupAdapter()
+        citiesPresenter.fetchCities()
         // Views initialization
         etCity = view.findViewById(R.id.et_city)
         btnConfirmCity = view.findViewById(R.id.btn_confirm_city)
-
         // Listeners
-        btnConfirmCity.setOnClickListener { confirmCity() }
-
-        // Cities mock
-        val cities = ArrayList<CityItemList>()
-        cities.add(CityItemList("Анапа"))
-        cities.add(CityItemList("Москва"))
-        cities.add(CityItemList("Омск"))
-
-        // Bind RecyclerView adapter
-        val rvCities = view.findViewById<RecyclerView>(R.id.rv_cities)
-        rvCities.hasFixedSize()
-        rvCities.layoutManager = LinearLayoutManager(requireContext())
-        rvCities.adapter = CitiesAdapter(cities, object : OnItemClickListener {
-            override fun onItemClick(text: String) {
-                etCity.setText(text)
-            }
-        })
+        btnConfirmCity.setOnClickListener { citiesPresenter.confirmCity(etCity.text?.toString()) }
     }
 
-    private fun confirmCity() {
-        val typedCity = etCity.text?.toString()
-        if (typedCity?.trim()?.equals("")!!)
-            Toast.makeText(requireContext(), R.string.hint_city_name, Toast.LENGTH_LONG).show()
-        else
-            (context as MainActivity).toWeatherFragment(typedCity)
+    // Bind RecyclerView adapter
+    private fun setupAdapter() {
+        val rvCities = view?.findViewById<RecyclerView>(R.id.rv_cities)
+        rvCities?.hasFixedSize()
+        rvCities?.layoutManager = LinearLayoutManager(requireContext())
+        rvCities?.adapter = citiesAdapter
+    }
+
+    // User didn't type the city name
+    override fun showNoDataText() {
+        Toast.makeText(requireContext(), R.string.hint_city_name, Toast.LENGTH_LONG).show()
+    }
+
+    // Not received cities list
+    override fun showLoadErrorText() {
+        Toast.makeText(requireContext(), R.string.err_city_loading, Toast.LENGTH_LONG).show()
+    }
+
+    override fun presentLoading() {
+        TODO()
+    }
+
+    // Load (update) RecyclerView with cities
+    override fun presentCities(data: ArrayList<CityItemList>) {
+        citiesAdapter.updateCities(data)
+    }
+
+    // To WeatherFragment with typed city
+    override fun showWeather(data: String) {
+        (context as MainActivity).toWeatherFragment(data)
     }
 }
