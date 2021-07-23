@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.ifeor.weather.SettingsFragment"
+        android:name="com.ifeor.weather.ui.settings.SettingsFragment"
         android:label="@string/str_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
