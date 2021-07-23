@@ -1,4 +1,4 @@
-package com.ifeor.weather
+package com.ifeor.weather.ui.cities
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -10,6 +10,10 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.ifeor.weather.data.model.CityItemList
+import com.ifeor.weather.ui.common.MainActivity
+import com.ifeor.weather.ui.common.OnItemClickListener
+import com.ifeor.weather.R
 
 class CitiesFragment : Fragment() {
 
@@ -45,8 +49,8 @@ class CitiesFragment : Fragment() {
         rvCities.hasFixedSize()
         rvCities.layoutManager = LinearLayoutManager(requireContext())
         rvCities.adapter = CitiesAdapter(cities, object : OnItemClickListener {
-            override fun onItemClick(city: String) {
-                etCity.setText(city)
+            override fun onItemClick(text: String) {
+                etCity.setText(text)
             }
         })
     }

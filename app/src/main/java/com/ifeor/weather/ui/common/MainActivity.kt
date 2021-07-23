@@ -1,4 +1,4 @@
-package com.ifeor.weather
+package com.ifeor.weather.ui.common
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.navigation.findNavController
 import com.google.android.material.navigation.NavigationView
+import com.ifeor.weather.R
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 

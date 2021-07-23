@@ -1,4 +1,4 @@
-package com.ifeor.weather
+package com.ifeor.weather.ui.weather
 
 import android.app.Activity
 import android.os.Bundle
@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import com.ifeor.weather.R
 import com.ifeor.weather.utils.API_KEY
 import org.json.JSONObject
 import java.net.URL
