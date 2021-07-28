@@ -1,4 +1,4 @@
-package com.ifeor.weather.ui.common
+package com.ifeor.weather.presentation.common
 
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -39,9 +39,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         findNavController(R.id.nav_host_fragment).navigate(R.id.nav_weather, bundle)
     }
 
-    fun toCitiesFragment() = findNavController(R.id.nav_host_fragment).navigate(R.id.nav_cities)
+    private fun toCitiesFragment() = findNavController(R.id.nav_host_fragment).navigate(R.id.nav_cities)
 
-    fun toSettingsFragment() = findNavController(R.id.nav_host_fragment).navigate(R.id.nav_settings)
+    private fun toSettingsFragment() = findNavController(R.id.nav_host_fragment).navigate(R.id.nav_settings)
 
     // Hide keyboard after typing
     override fun dispatchTouchEvent(ev: MotionEvent?): Boolean {

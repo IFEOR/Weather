@@ -1,12 +1,12 @@
-package com.ifeor.weather.ui.cities
+package com.ifeor.weather.presentation.adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.ifeor.weather.data.model.CityItemList
-import com.ifeor.weather.ui.common.OnItemClickListener
+import com.ifeor.weather.repository.model.CityItemList
+import com.ifeor.weather.presentation.common.OnItemClickListener
 import com.ifeor.weather.R
 
 class CitiesAdapter(cityList: ArrayList<CityItemList>, private val onClickListener: OnItemClickListener) :

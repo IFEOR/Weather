@@ -7,13 +7,13 @@
 
     <fragment
         android:id="@+id/nav_weather"
-        android:name="com.ifeor.weather.ui.weather.WeatherFragment"
+        android:name="com.ifeor.weather.presentation.fragments.WeatherFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_weather" />
 
     <fragment
         android:id="@+id/nav_cities"
-        android:name="com.ifeor.weather.ui.cities.CitiesFragment"
+        android:name="com.ifeor.weather.presentation.fragments.CitiesFragment"
         android:label="@string/str_choose_city"
         tools:layout="@layout/fragment_cities">
         <argument
@@ -22,7 +22,7 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.ifeor.weather.SettingsFragment"
+        android:name="com.ifeor.weather.presentation.fragments.SettingsFragment"
         android:label="@string/str_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
